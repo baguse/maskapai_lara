@@ -12,5 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+Route::get('/akun/reset', function () {
+    return view('reset');
+});
+
+Route::get('/akun/register', function () {
+    return view('register');
 });

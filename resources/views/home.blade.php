@@ -54,13 +54,14 @@
   @section('custom_script')
   <script type="text/javascript">
     $(document).ready(function(){
+      $("#btn-home").addClass("active");
       $("#btn-login").on("click",function(){
         $("#btn-login").addClass("active");
-        $("#btn-daftar").removeClass("active");
+        $("#btn-home").removeClass("active");
       });
       $("#btn-close").on("click",function(){
         $("#btn-login").removeClass("active");
-        $("#btn-daftar").addClass("active");
+        $("#btn-home").addClass("active");
       });
       // Show Password
       $(".reveal").on('click',function() {

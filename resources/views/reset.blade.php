@@ -9,8 +9,7 @@
   <div class="row">
     <div class="col-md-9 register-right">
       <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" 
-        aria-labelledby="home-tab">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <h3 class="register-heading">Reset Password</h3>
         <div class="row register-form"> <!-- Isi Form -->
           <div class="panel panel-default" style="margin-left:200px;">

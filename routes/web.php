@@ -22,3 +22,15 @@ Route::get('/akun/reset', function () {
 Route::get('/akun/register', function () {
     return view('register');
 });
+
+Route::post('/{type}/login/proses', 'C_akun@login');
+Route::post('/{type}/register/proses', 'C_akun@register');
+
+Route::get('/coba', 'Coba@get');
+
+Route::get('/cobainsert', 'Coba@insert');
+
+Route::get('geo/getProvinces', 'geoCity@Provinces');
+Route::get('geo/getCities/{provId}', 'geoCity@Cities');
+
+Route::get('mail', 'C_akun@mailer');

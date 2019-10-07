@@ -30,7 +30,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <li class="nav-item" id="btn-home">
             <a class="nav-link" href="<?=url('/')?>">Home
               <span class="sr-only">(current)</span>
             </a>
@@ -56,7 +56,8 @@
         <div class="modal-header bgcustom">
           <h4 class="modal-title">Log In</h4>
         </div>
-        <form action="proses.php" method="POST">
+        <form action="<?=url('/kios/login/proses')?>" method="POST">
+          @csrf
           <div class="modal-body">
             <div class="form-group">
               <input type="text" class="form-control" name="usr" placeholder="Username">
@@ -93,6 +94,7 @@
 
   <!-- Bootstrap core JavaScript -->
   <script src="<?=url('vendor/jquery/jquery.min.js');?>"></script>
+  <script src="<?=url('vendor/jquery-ui/jquery-ui.min.js');?>"></script>
   <script src="<?=url('vendor/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
   @yield('custom_script')
 </body>

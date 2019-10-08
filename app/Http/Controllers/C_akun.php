@@ -18,7 +18,7 @@ class C_akun extends Controller{
 		return 'Email was sent';
 	}
 	public function login(Request $request,$type){
-    	//echo json_encode($request);
+    	//echo jsoc_encode($request);
     	//echo $request->usr."|".$request->pswd;
     	//echo json_encode($request);
 		if($request->has('usr') && $request->has('pswd')){
@@ -28,7 +28,7 @@ class C_akun extends Controller{
 			if($hasil['success']){
 				echo json_encode($hasil['akun']);
 			}else{
-				echo "password atau username salah";
+				echo $hasil['error_msg'];
 			}
 		}else{
 			echo "password & atau username ksoong";
@@ -59,8 +59,11 @@ class C_akun extends Controller{
 				if($pesan){
 					return view('register',["pesan"=>$pesan]);
 				}else{
-					$data=array(["id_kios"=>M_utility::genRandomString(20),"nama_kios"=>$request->input('txtCompany_name'),"nama_pemilik"=>$request->input('txtName'),"alamat_kios"=>$request->input('txtCompany_addr'),"kota_kios"=>$request->input('sCity'),"provinsi_kios"=>$request->input('sProvincy'),"telp_kios"=>$request->input('txtEmpPhone'),"email_kios"=>$request->input('txtEmail'),"username"=>$request->input('txtUsername'),"password"=>md5($request->input('pswd1')),"foto_ktp_pemilik"=>"testduulu"]);
+					$token=M_utility::genRandomString(20);
+					$data=array(["id_kios"=>M_utility::genRandomString(20),"nama_kios"=>$request->input('txtCompany_name'),"nama_pemilik"=>$request->input('txtName'),"alamat_kios"=>$request->input('txtCompany_addr'),"kota_kios"=>$request->input('sCity'),"provinsi_kios"=>$request->input('sProvincy'),"telp_kios"=>$request->input('txtEmpPhone'),"email_kios"=>$request->input('txtEmail'),"username"=>$request->input('txtUsername'),"password"=>md5($request->input('pswd1')),"foto_ktp_pemilik"=>"testduulu","token"=>$token]);
 					echo json_encode(M_kios::register($data));
+					Mail::to($request->input('txtEmail'))->send(new SendMailable("Konfirmasi Pendaftaran","mail_layouts.konfirmasi",$request->input('txtUsername'),$token));
+					return 'Email was sent';
 				}
 			}
 			//{"txtUsername":"baguse","txtEmail":"andreanto.bagus@gmail.com","pswd1":"12345","pswd2":"12345","txtCompany_name":"Baguse Corp","txtCompany_addr":"jalan yang lurus","sProvincy":"14","sCity":"1473","txtEmpPhone":"(0322)1153632","txtName":"Baguse","btnRegister":"Register"}
@@ -78,8 +81,15 @@ class C_akun extends Controller{
 
 		}
 	}
-
+	public function konfirmasi_kios($username,$token){
+		$row=M_kios::confirm($username,$token);
+		if($row['success']){
+			echo "Akun berhasil divalidasi";
+		}else{
+			echo $row['error_msg'];
+		}
+	}
 	function test(){
-		echo "ini dari controller C_akun";
+		phpinfo();
 	}
 }

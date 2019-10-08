@@ -19,4 +19,21 @@ class M_kios extends Model{
     	}
     	return $data;
     }
+
+    static function confirm($username,$token){
+    	$data=[];
+    	$data['success']=false;
+    	if($token!="-" && $token!="1"){
+            $res=DB::table('kios')->where('token',$token)->where('username',$username);
+            if($res->count()>0){
+                $res->update(["token"=>"1"]);
+                $data['success']=true;
+            }else{
+                $data['error_msg']="Kode yang dimasukkan salah";    
+            }
+    	}else{
+            $data['error_msg']="Kode yang dimasukkan salah";
+        }
+        return $data;
+    }
 }

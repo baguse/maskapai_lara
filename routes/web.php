@@ -25,7 +25,7 @@ Route::get('/akun/register', function () {
 
 Route::post('/{type}/login/proses', 'C_akun@login');
 Route::post('/{type}/register/proses', 'C_akun@register');
-
+Route::get('/kios/c/{username}/{token}','C_akun@konfirmasi_kios');
 Route::get('/coba', 'Coba@get');
 
 Route::get('/cobainsert', 'Coba@insert');
@@ -34,3 +34,5 @@ Route::get('geo/getProvinces', 'geoCity@Provinces');
 Route::get('geo/getCities/{provId}', 'geoCity@Cities');
 
 Route::get('mail', 'C_akun@mailer');
+
+Route::get('info', 'C_akun@test');

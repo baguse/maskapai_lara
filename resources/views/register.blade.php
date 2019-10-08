@@ -192,7 +192,6 @@
 		});
 
 		$("#btnRegister").on("click",function(e){
-			console.log(geolocation.getCurrentPosition());
 			$("#list_err").html("");
 			$('#frmRegister input[type=text],#frmRegister input[type=password],#frmRegister input[type=email],#frmRegister input[type=file]').each(function(){
 				//console.log($(this).attr('id'));

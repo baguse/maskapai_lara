@@ -36,4 +36,8 @@ class M_kios extends Model{
         }
         return $data;
     }
+
+    static function getData($id){
+        return DB::table('kios')->where('id_kios',$id)->get();
+    }
 }

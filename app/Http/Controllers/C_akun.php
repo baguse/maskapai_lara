@@ -10,7 +10,7 @@ use App\M_akun;
 use App\M_utility;
 use App\M_kios;
 
-class C_akun extends Controller{
+class c_Akun extends Controller{
     //
 	public function mailer(){
 		$name = 'Krunal';
@@ -26,13 +26,22 @@ class C_akun extends Controller{
 			$password=$request->pswd;
 			$hasil=M_akun::login($type,$username,$password);
 			if($hasil['success']){
-				echo json_encode($hasil['akun']);
+				//echo json_encode($hasil['akun']);
+				$request->session()->put('username',$hasil['akun'][0]->username);
+				$request->session()->put('id_user',$hasil['akun'][0]->username);
+				if($type=='kios'){
+					$request->session()->put('id_user',$hasil['akun'][0]->id_kios);
+				}else{
+					$request->session()->put('id_user',$hasil['akun'][0]->id_admin);
+				}
+				$request->session()->put('type',$type);
+				return redirect('/dashboard');
 			}else{
-				echo $hasil['error_msg'];
+				//echo $hasil['error_msg'];
+				return redirect("/")->with('msg','Username atau Password Salah!')->with('title_msg','Kesalahan')->with('type','error');
 			}
 		}else{
-			echo "password & atau username ksoong";
-		}
+			return redirect("/")->with('msg','Username atau Password Salah!')->with('title_msg','Kesalahan')->with('type','error');		}
 	}
 
 	public function register(Request $request,$type){
@@ -84,12 +93,19 @@ class C_akun extends Controller{
 	public function konfirmasi_kios($username,$token){
 		$row=M_kios::confirm($username,$token);
 		if($row['success']){
-			echo "Akun berhasil divalidasi";
+			//echo "Akun berhasil divalidasi";
+			return redirect("/")->with('msg','Konfirmasi berhasil, Silahkan Login')->with('title_msg','Sukses')->with('type','success');
 		}else{
 			echo $row['error_msg'];
 		}
 	}
 	function test(){
 		phpinfo();
+	}
+
+	public function logout(Request $request){
+		$request->session()->forget(['username']);
+		$request->session()->flush();
+		return redirect('/');
 	}
 }

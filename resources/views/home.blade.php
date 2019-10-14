@@ -17,7 +17,6 @@
 
 @section('content')
 <div class="container">
-
   <div class="row">
     <div class="col-md-8 mb-5">
       <h2>What We Do</h2>
@@ -44,34 +43,45 @@
       </address>
     </div>
   </div>
-
   <!-- Maps -->
   <div class="map">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15827.001772991132!2d112.7705742!3d-7.3818402!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x638d12f3a99a976c!2sTunas%20Persada%20Mandiri%20(%20TUNEX%20).%20PT!5e0!3m2!1sid!2sid!4v1568966246916!5m2!1sid!2sid" width="100%" height="300px" frameborder="0" style="border:0;" allowfullscreen=""></iframe>&nbsp;</div>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15827.001772991132!2d112.7705742!3d-7.3818402!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x638d12f3a99a976c!2sTunas%20Persada%20Mandiri%20(%20TUNEX%20).%20PT!5e0!3m2!1sid!2sid!4v1568966246916!5m2!1sid!2sid" width="100%" height="300px" frameborder="0" style="border:0;" allowfullscreen=""></iframe>&nbsp;
   </div>
-  @endsection
+</div>
+@endsection
 
-  @section('custom_script')
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $("#btn-home").addClass("active");
-      $("#btn-login").on("click",function(){
-        $("#btn-login").addClass("active");
-        $("#btn-home").removeClass("active");
-      });
-      $("#btn-close").on("click",function(){
-        $("#btn-login").removeClass("active");
-        $("#btn-home").addClass("active");
-      });
-      // Show Password
-      $(".reveal").on('click',function() {
-        var $pwd = $(".pwd");
-        if ($pwd.attr('type') === 'password') {
-          $pwd.attr('type', 'text');
-        } else {
-          $pwd.attr('type', 'password');
-        }
-      });
+@section('custom_script')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#btn-home").addClass("active");
+    $("#btn-login").on("click",function(){
+      $("#btn-login").addClass("active");
+      $("#btn-home").removeClass("active");
     });
+    $("#btn-close").on("click",function(){
+      $("#btn-login").removeClass("active");
+      $("#btn-home").addClass("active");
+    });
+    // Show Password
+    $(".reveal").on('click',function() {
+      var $pwd = $(".pwd");
+      if ($pwd.attr('type') === 'password') {
+        $pwd.attr('type', 'text');
+      } else {
+        $pwd.attr('type', 'password');
+      }
+    });
+  });
+</script>
+<script src="<?=url('js/sweetalert2.all.min.js')?>"/></script>
+
+@if(session()->has('msg'))
+  <script type="text/javascript">
+    Swal.fire({
+      type: '{{session('type')}}',
+      title: '{{session('title_msg')}}',
+      text: '{{session('msg')}}'
+    })
   </script>
-  @endsection
+@endif
+@endsection
